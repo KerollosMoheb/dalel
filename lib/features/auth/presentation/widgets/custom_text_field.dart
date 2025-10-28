@@ -8,10 +8,14 @@ class CustomTextFormField extends StatelessWidget {
     required this.labelText,
     this.onChanged,
     this.onFieldSubmitted,
+    this.suffixIcon,
+    this.obscureText,
   });
   final String labelText;
   final Function(String)? onChanged;
   final Function(String)? onFieldSubmitted;
+  final Widget? suffixIcon;
+  final bool? obscureText;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,7 +29,10 @@ class CustomTextFormField extends StatelessWidget {
         },
         onChanged: onChanged,
         onFieldSubmitted: onFieldSubmitted,
+        obscureText: obscureText ?? false,
         decoration: InputDecoration(
+          suffixIcon: suffixIcon,
+          suffixIconColor: AppColors.primaryColor,
           border: getBoarderStyle(),
           enabledBorder: getBoarderStyle(),
           focusedBorder: getBoarderStyle(),
