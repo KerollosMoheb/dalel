@@ -38,4 +38,10 @@ abstract class CustomTextStyles {
     color: AppColors.deepGrey,
     fontFamily: 'Poppins',
   );
+  static final saria700style32 = TextStyle(
+    fontSize: 32,
+    fontWeight: FontWeight.w700,
+    color: Colors.white,
+    fontFamily: 'Saria',
+  );
 }
