@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalel/features/auth/presentation/auth_cubit/cubit/auth_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -22,26 +23,31 @@ class AuthCubit extends Cubit<AuthState> {
         email: emailAddress!,
         password: password!,
       );
+      await addUserProfile();
       await verifyEmail();
       emit(SignUpSuccessState());
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        emit(
-          SignUpFailureState(errMessage: 'The password provided is too weak.'),
-        );
-      } else if (e.code == 'email-already-in-use') {
-        emit(
-          SignUpFailureState(
-            errMessage: 'The account already exists for that email.',
-          ),
-        );
-      } else if (e.code == 'invalid-email') {
-        emit(SignUpFailureState(errMessage: 'The email is Invalid.'));
-      } else {
-        emit(SignUpFailureState(errMessage: e.code));
-      }
+      _signUpHandleException(e);
     } catch (e) {
       emit(SignUpFailureState(errMessage: e.toString()));
+    }
+  }
+
+  void _signUpHandleException(FirebaseAuthException e) {
+    if (e.code == 'weak-password') {
+      emit(
+        SignUpFailureState(errMessage: 'The password provided is too weak.'),
+      );
+    } else if (e.code == 'email-already-in-use') {
+      emit(
+        SignUpFailureState(
+          errMessage: 'The account already exists for that email.',
+        ),
+      );
+    } else if (e.code == 'invalid-email') {
+      emit(SignUpFailureState(errMessage: 'The email is Invalid.'));
+    } else {
+      emit(SignUpFailureState(errMessage: e.code));
     }
   }
 
@@ -96,5 +102,14 @@ class AuthCubit extends Cubit<AuthState> {
     } on Exception catch (e) {
       emit(ResetPasswordFailureState(errMessage: e.toString()));
     }
+  }
+
+  Future<void> addUserProfile() async {
+    CollectionReference user = FirebaseFirestore.instance.collection('users');
+    await user.add({
+      "email": emailAddress,
+      "first_name": firstName,
+      "last_name": lastName,
+    });
   }
 }
