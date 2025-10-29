@@ -11,16 +11,18 @@ class AuthCubit extends Cubit<AuthState> {
   String? password;
   GlobalKey<FormState> signUpFormKey = GlobalKey();
   GlobalKey<FormState> signInFormKey = GlobalKey();
+  GlobalKey<FormState> forgotPasswordFormKey = GlobalKey();
   bool? termsAndConditionsCheckBoxValue = false;
   bool? obsecurePasswordTextValue = true;
 
-  signUpWithEmailAndPassword() async {
+  Future<void> signUpWithEmailAndPassword() async {
     try {
       emit(SignUpLoadingState());
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailAddress!,
         password: password!,
       );
+      await verifyEmail();
       emit(SignUpSuccessState());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -33,10 +35,18 @@ class AuthCubit extends Cubit<AuthState> {
             errMessage: 'The account already exists for that email.',
           ),
         );
+      } else if (e.code == 'invalid-email') {
+        emit(SignUpFailureState(errMessage: 'The email is Invalid.'));
+      } else {
+        emit(SignUpFailureState(errMessage: e.code));
       }
     } catch (e) {
       emit(SignUpFailureState(errMessage: e.toString()));
     }
+  }
+
+  Future<void> verifyEmail() async {
+    await FirebaseAuth.instance.currentUser!.sendEmailVerification();
   }
 
   void updateTermsAndConditionsCheckBox({required newValue}) {
@@ -53,7 +63,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(ObsecurePasswordTextUpdateState());
   }
 
-  signInWithEmailAndPassword() async {
+  Future<void> signInWithEmailAndPassword() async {
     try {
       emit(SignInLoadingState());
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -75,6 +85,16 @@ class AuthCubit extends Cubit<AuthState> {
       }
     } catch (e) {
       emit(SignInFailureState(errMessage: e.toString()));
+    }
+  }
+
+  Future<void> resetPasswordWithLink() async {
+    try {
+      emit(ResetPasswordLoadingState());
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: emailAddress!);
+      emit(ResetPasswordSuccessState());
+    } on Exception catch (e) {
+      emit(ResetPasswordFailureState(errMessage: e.toString()));
     }
   }
 }

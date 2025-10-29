@@ -10,7 +10,7 @@ class ForgetPasswordTextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        customReplacementNavigate(context, "/path");
+        customReplacementNavigate(context, "/forgetPassword");
       },
       child: Align(
         alignment: AlignmentGeometry.centerRight,
