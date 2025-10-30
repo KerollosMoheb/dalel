@@ -32,10 +32,28 @@ abstract class CustomTextStyles {
     color: AppColors.grey,
     fontFamily: 'Poppins',
   );
+  static final poppins500style14 = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: AppColors.deepBrown,
+    fontFamily: 'Poppins',
+  );
+  static final poppins500style16 = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: AppColors.deepBrown,
+    fontFamily: 'Poppins',
+  );
   static final poppins400style12 = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w400,
     color: AppColors.deepGrey,
+    fontFamily: 'Poppins',
+  );
+  static final poppins400style20 = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    color: AppColors.deepBrown,
     fontFamily: 'Poppins',
   );
   static final pacificoBoldstyle42 = TextStyle(
