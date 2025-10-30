@@ -1,15 +1,13 @@
 import 'package:dalel/core/utils/app_colors.dart';
 import 'package:dalel/core/utils/app_text_styles.dart';
+import 'package:dalel/features/home/data/models/historical_periods_model.dart';
 import 'package:flutter/material.dart';
 
 class HestoricalPeriodItem extends StatelessWidget {
-  const HestoricalPeriodItem({
-    super.key,
-    required this.text,
-    required this.imagePath,
-  });
-  final String text;
-  final String imagePath;
+  const HestoricalPeriodItem({super.key, required this.historicalModel});
+
+  final HistoricalPeriodsModel historicalModel;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,17 +33,21 @@ class HestoricalPeriodItem extends StatelessWidget {
               height: 48,
               width: 63,
               child: Text(
-                text,
+                historicalModel.name,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 style: CustomTextStyles.poppins500style16,
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(
+            Container(
               height: 64,
               width: 47,
-              child: Center(child: Image.asset(imagePath)),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(historicalModel.image),
+                ),
+              ),
             ),
           ],
         ),

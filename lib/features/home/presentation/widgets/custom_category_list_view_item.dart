@@ -1,11 +1,11 @@
-import 'package:dalel/core/utils/app_assets.dart';
 import 'package:dalel/core/utils/app_colors.dart';
 import 'package:dalel/core/utils/app_text_styles.dart';
+import 'package:dalel/features/home/data/models/historical_characters_model.dart';
 import 'package:flutter/material.dart';
 
 class CustomCategoryListViewItem extends StatelessWidget {
-  const CustomCategoryListViewItem({super.key});
-
+  const CustomCategoryListViewItem({super.key, required this.historicalModel});
+  final HistoricalCharactersModel historicalModel;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,13 +30,13 @@ class CustomCategoryListViewItem extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               image: DecorationImage(
-                image: AssetImage(Assets.imagesLionHeart),
+                image: NetworkImage(historicalModel.image),
                 fit: BoxFit.fill,
               ),
             ),
           ),
           const SizedBox(height: 11),
-          Text("Lionheart", style: CustomTextStyles.poppins500style14),
+          Text(historicalModel.name, style: CustomTextStyles.poppins500style14),
         ],
       ),
     );
