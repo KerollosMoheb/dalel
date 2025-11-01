@@ -1,17 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalel/core/utils/app_strings.dart';
-import 'package:dalel/features/home/data/models/historical_characters_model.dart';
-import 'package:dalel/features/home/presentation/widgets/custom_category_list_view_item.dart';
+import 'package:dalel/features/home/data/models/historical_souvenirs_model.dart';
+import 'package:dalel/features/home/presentation/widgets/custom_category_list_view_item_books.dart';
 import 'package:flutter/material.dart';
 
-class CustomCategoryListView extends StatelessWidget {
-  const CustomCategoryListView({super.key});
+class CustomCategoryListViewBooks extends StatelessWidget {
+  const CustomCategoryListViewBooks({super.key});
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<QuerySnapshot>(
       future: FirebaseFirestore.instance
-          .collection(FireBaseStrings.historicalCharacters)
+          .collection(FireBaseStrings.historicalBooks)
           .get(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
@@ -22,10 +22,10 @@ class CustomCategoryListView extends StatelessWidget {
           return Text("Document does not exist");
         }
         if (snapshot.connectionState == ConnectionState.done) {
-          List<HistoricalCharactersModel> historicalCharacters = [];
+          List<HistoricalBooksModel> historicalBooks = [];
           for (int i = 0; i < snapshot.data!.docs.length; i++) {
-            historicalCharacters.add(
-              HistoricalCharactersModel.fromJson(snapshot.data!.docs[i]),
+            historicalBooks.add(
+              HistoricalBooksModel.fromJson(snapshot.data!.docs[i]),
             );
           }
           return SizedBox(
@@ -37,8 +37,8 @@ class CustomCategoryListView extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
-                return CustomCategoryListViewItem(
-                  historicalModel: historicalCharacters[index],
+                return CustomCategoryListViewItemBooks(
+                  booksModel: historicalBooks[index],
                 );
               },
             ),

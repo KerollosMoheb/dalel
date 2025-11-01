@@ -3,9 +3,12 @@ import 'package:dalel/core/utils/app_text_styles.dart';
 import 'package:dalel/features/home/data/models/historical_characters_model.dart';
 import 'package:flutter/material.dart';
 
-class CustomCategoryListViewItem extends StatelessWidget {
-  const CustomCategoryListViewItem({super.key, required this.historicalModel});
-  final HistoricalCharactersModel historicalModel;
+class CustomCategoryListViewItemCharachters extends StatelessWidget {
+  const CustomCategoryListViewItemCharachters({
+    super.key,
+    required this.characterModel,
+  });
+  final HistoricalCharactersModel characterModel;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,13 +33,13 @@ class CustomCategoryListViewItem extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               image: DecorationImage(
-                image: NetworkImage(historicalModel.image),
+                image: NetworkImage(characterModel.image),
                 fit: BoxFit.fill,
               ),
             ),
           ),
           const SizedBox(height: 11),
-          Text(historicalModel.name, style: CustomTextStyles.poppins500style14),
+          Text(characterModel.name, style: CustomTextStyles.poppins500style14),
         ],
       ),
     );

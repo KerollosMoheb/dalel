@@ -1,6 +1,6 @@
 import 'package:dalel/core/utils/app_strings.dart';
 import 'package:dalel/core/widgets/custom_header_text.dart';
-import 'package:dalel/features/home/presentation/widgets/custom_category_list_view.dart';
+import 'package:dalel/features/home/presentation/widgets/custom_category_list_view_characters.dart';
 import 'package:flutter/material.dart';
 
 class HistoricalCharactersSection extends StatelessWidget {
@@ -13,7 +13,7 @@ class HistoricalCharactersSection extends StatelessWidget {
       children: [
         CustomHeaderText(text: AppStrings.historicalCharacters),
         SizedBox(height: 16),
-        CustomCategoryListView(),
+        CustomCategoryListViewCharachters(),
         SizedBox(height: 32),
       ],
     );
