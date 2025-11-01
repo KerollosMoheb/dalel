@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dalel/core/utils/app_colors.dart';
 import 'package:dalel/core/utils/app_text_styles.dart';
 import 'package:dalel/features/home/data/models/historical_characters_model.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CustomCategoryListViewItemCharachters extends StatelessWidget {
   const CustomCategoryListViewItemCharachters({
@@ -27,15 +29,17 @@ class CustomCategoryListViewItemCharachters extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Container(
-            width: 74,
+          SizedBox(
             height: 96,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              image: DecorationImage(
-                image: NetworkImage(characterModel.image),
-                fit: BoxFit.fill,
+            width: 74,
+            child: CachedNetworkImage(
+              imageUrl: characterModel.image,
+              placeholder: (context, url) => Shimmer.fromColors(
+                baseColor: AppColors.grey,
+                highlightColor: Colors.white,
+                child: Container(width: 47, height: 64, color: AppColors.grey),
               ),
+              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
           ),
           const SizedBox(height: 11),

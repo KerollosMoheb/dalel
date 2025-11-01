@@ -43,10 +43,7 @@ class HestoricalPeriods extends StatelessWidget {
             ),
           );
         }
-        return CustomShimmer(
-          width: 164,
-          height: 96,
-        );
+        return CustomShimmer(width: 164, height: 96);
       },
     );
   }

@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dalel/core/utils/app_colors.dart';
 import 'package:dalel/core/utils/app_text_styles.dart';
 import 'package:dalel/features/home/data/models/historical_souvenirs_model.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CustomCategoryListViewItemBooks extends StatelessWidget {
   const CustomCategoryListViewItemBooks({super.key, required this.booksModel});
@@ -24,15 +26,17 @@ class CustomCategoryListViewItemBooks extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Container(
-            width: 85,
+          SizedBox(
             height: 85,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              image: DecorationImage(
-                image: NetworkImage(booksModel.image),
-                fit: BoxFit.fill,
+            width: 85,
+            child: CachedNetworkImage(
+              imageUrl: booksModel.image,
+              placeholder: (context, url) => Shimmer.fromColors(
+                baseColor: AppColors.grey,
+                highlightColor: Colors.white,
+                child: Container(width: 47, height: 64, color: AppColors.grey),
               ),
+              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
           ),
           const SizedBox(height: 5),
