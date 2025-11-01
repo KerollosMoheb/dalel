@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalel/core/utils/app_strings.dart';
+import 'package:dalel/core/widgets/custom_shimmer.dart';
 import 'package:dalel/features/home/data/models/historical_characters_model.dart';
 import 'package:dalel/features/home/presentation/widgets/custom_category_list_view_item_characters.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,7 @@ class CustomCategoryListViewCharachters extends StatelessWidget {
             ),
           );
         }
-        return Text("loading");
+        return CustomShimmer(width: 74, height: 133);
       },
     );
   }

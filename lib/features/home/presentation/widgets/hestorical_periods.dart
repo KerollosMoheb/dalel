@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalel/core/utils/app_strings.dart';
+import 'package:dalel/core/widgets/custom_shimmer.dart';
 import 'package:dalel/features/home/data/models/historical_periods_model.dart';
 import 'package:dalel/features/home/presentation/widgets/hestorical_perod_item.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,10 @@ class HestoricalPeriods extends StatelessWidget {
             ),
           );
         }
-        return Text("loading");
+        return CustomShimmer(
+          width: 164,
+          height: 96,
+        );
       },
     );
   }
